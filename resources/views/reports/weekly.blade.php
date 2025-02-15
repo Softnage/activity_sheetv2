@@ -47,7 +47,7 @@
 </div>
 
 <!-- Dynamic Activity Modal -->
-<div id="activityModal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+<div id="activityModal" style="display: none;" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
     <div class="bg-white rounded-lg shadow-lg w-96 p-6">
         <div class="flex justify-between items-center border-b pb-3">
             <h5 id="modalTitle" class="text-lg font-bold text-gray-800"></h5>
