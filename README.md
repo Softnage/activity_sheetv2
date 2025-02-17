@@ -62,9 +62,9 @@ composer install<br>
 php artisan key:generate<br>
 npm i<br>
 npm run dev
+php artisan serve
 
 
-php artisan serve --host=0.0.0.0 --port=8000
 ## Code of Conduct
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
