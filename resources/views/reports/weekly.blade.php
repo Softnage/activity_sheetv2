@@ -27,7 +27,7 @@
                                     @if ($activity)
                                         @php
                                             // Fetch task title using task_id
-                                            $taskTitle = $activity->task->title ?? 'Unknown Task';
+                                            $taskTitle = $activity->description ?? 'Unknown Task';
                                         @endphp
                                         <button class="text-blue-600 font-semibold underline hover:text-blue-800 transition"
                                             onclick="openModal('{{ md5($day . $slot) }}', '{{ addslashes($taskTitle) }}', '{{ ucfirst($activity->status) }}', '{{ \Carbon\Carbon::parse($activity->logged_at)->format('H:i') }}', '{{ addslashes($activity->description) }}')">

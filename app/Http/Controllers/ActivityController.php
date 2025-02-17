@@ -38,16 +38,34 @@ class ActivityController extends Controller
         $request->validate([
             'task_id' => 'required|exists:tasks,id',
             'description' => 'required|string|max:1000',
+            'status' => 'required|in:completed,undone',
         ]);
-
-        Activity::create([
-            'user_id' => auth()->id(),
-            'task_id' => $request->task_id,
-            'description' => $request->description,
-            'logged_at' => now(),
-        ]);
-
+    
+        // Get the selected task
+        $task = Task::findOrFail($request->task_id);
+    
+        // If status is "completed", save to activities table
+        if ($request->status === 'completed') {
+            Activity::create([
+                'user_id' => auth()->id(),
+                'task_id' => $request->task_id,
+                'description' => $request->description,
+                'status' => $request->status,
+                'logged_at' => now(),
+            ]);
+    
+            // Mark task as completed
+            $task->status = 'completed';
+        } else {
+            // If status is "undone", keep the task status as undone
+            $task->status = 'undone';
+        }
+    
+        $task->save();
+    
         return redirect()->route('activities.index')->with('success', 'Activity logged successfully.');
     }
+    
+    
 }
 

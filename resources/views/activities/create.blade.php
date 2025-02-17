@@ -29,6 +29,15 @@
                             <textarea name="description" id="description" class="form-control p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 w-full" rows="4" placeholder="Enter activity details..." required></textarea>
                         </div>
 
+                        <!-- Status Dropdown -->
+                        <div class="mb-4">
+                            <label for="status" class="form-label font-medium text-sm text-gray-700">Status</label>
+                            <select name="status" id="status" class="form-select p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 w-full" required>
+                                <option value="completed">Completed</option>
+                                <option value="undone">Undone</option>
+                            </select>
+                        </div>
+
                         <!-- Submit Button -->
                         <button type="submit" class="btn btn-primary w-full py-3 text-lg rounded-md shadow-md transition duration-200 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
                             Log Activity

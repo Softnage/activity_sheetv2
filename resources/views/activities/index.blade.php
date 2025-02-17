@@ -21,6 +21,7 @@
                                     <tr class="text-center">
                                         <th class="py-3"><i class="fas fa-tasks me-1"></i> Task</th>
                                         <th class="py-3"><i class="fas fa-align-left me-1"></i> Description</th>
+                                        <th class="py-3"><i class="fas fa-align-left me-1"></i>Status</th>
                                         <th class="py-3"><i class="fas fa-clock me-1"></i> Logged At</th>
                                         <th class="py-3"><i class="fas fa-user me-1"></i> Employee</th>
                                     </tr>
@@ -33,6 +34,11 @@
                                             </td>
                                             <td class="px-4 py-3 text-gray-600">
                                                 {{ Str::limit($activity->description, 50) }}
+                                            </td>
+                                            <td class="px-4 py-3 text-gray-600 badge">
+                                                <span class="badge {{ $activity->task->status === 'completed' ? 'bg-success' : 'bg-warning' }}">
+                                                    {{($activity->task->status) }}
+                                                </span>
                                             </td>
                                             <td class="px-4 py-3 text-gray-500">
                                                 <i class="fas fa-calendar-alt text-green-500 me-2"></i> {{ $activity->logged_at->format('d M Y, h:i A') }}
