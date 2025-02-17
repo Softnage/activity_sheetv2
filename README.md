@@ -61,7 +61,7 @@ copy .env.example .env<br>
 composer install<br>
 php artisan key:generate<br>
 npm i<br>
-npm run dev
+npm run dev<br>
 php artisan serve
 
 
