@@ -77,11 +77,17 @@
                 <span x-show="open" class="ml-3">My Reports</span>
             </a>
         </li>
-        <!-- create activities link -->
+        <!-- activities link -->
         <li>
             <a href="{{ route('activities.index') }}" class="sidebar-link">
                 <i class="fas fa-chart-line"></i>
                 <span x-show="open" class="ml-3">Activities</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{route('activities.create')}}" class="sidebar-link">
+            <i class="fas fa-chart-line"></i>
+            <span x-show="open" class="ml-3">Log Activity</span>
             </a>
         </li>
     @endif
