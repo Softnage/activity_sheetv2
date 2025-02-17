@@ -22,22 +22,26 @@
                             @foreach ($daysOfWeek as $day)
                                 <td class="p-3 border text-center">
                                     @php
-                                        $activity = $structuredActivities[$day][$slot] ?? null;
+                                        $activities = $structuredActivities[$day][$slot] ?? [];
                                     @endphp
-                                    @if ($activity)
-                                        @php
-                                            // Fetch task title using task_id
-                                            $taskTitle = $activity->task->title ?? 'Unknown Task';
-                                        @endphp
-                                        <button class="text-blue-600 font-semibold underline hover:text-blue-800 transition" onclick="openModal('{{ md5($day . $slot) }}', 
-        '{{ addslashes($taskTitle) }}', 
-        '{{ ucfirst($activity->task->status) }}', 
-        '{{ \Carbon\Carbon::parse($activity->logged_at)->format('H:i') }}', 
-        '{{ addslashes($activity->description) }}',
-        '{{ auth()->user()->role === 'admin' ? addslashes($activity->user->name) : '' }}')">
-    {{ $taskTitle }}
-</button>
-
+                                    @if (count($activities) > 0)
+                                        @foreach ($activities as $activity)
+                                            @php
+                                                $taskTitle = $activity->task->title ?? 'Unknown Task';
+                                                $loggedBy = $activity->user->name ?? 'Unknown User';
+                                            @endphp
+                                            <button class="text-blue-600 font-semibold underline hover:text-blue-800 transition block"
+                                                onclick="openModal(
+                                                    '{{ md5($day . $slot . $activity->id) }}', 
+                                                    '{{ addslashes($taskTitle) }}', 
+                                                    '{{ ucfirst($activity->task->status) }}', 
+                                                    '{{ \Carbon\Carbon::parse($activity->logged_at)->format('H:i') }}', 
+                                                    '{{ addslashes($activity->description) }}',
+                                                    '{{ auth()->user()->role === 'admin' ? addslashes($loggedBy) : '' }}'
+                                                )">
+                                                {{ $taskTitle }}
+                                            </button>
+                                        @endforeach
                                     @else
                                         <span class="text-gray-500 italic">No Activity</span>
                                     @endif
@@ -59,9 +63,9 @@
             <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700">&times;</button>
         </div>
         <div class="py-4">
-        @if(auth()->user()->role === 'admin')
-        <p class="text-gray-600"><strong>👤 Logged By:</strong> <span id="modalUser"></span></p>
-    @endif
+            @if(auth()->user()->role === 'admin')
+                <p class="text-gray-600"><strong>👤 Logged By:</strong> <span id="modalUser"></span></p>
+            @endif
             <p class="text-gray-600"><strong>🔹 Status:</strong> <span id="modalStatus"></span></p>
             <p class="text-gray-600"><strong>🕒 Logged At:</strong> <span id="modalTime"></span></p>
             <p class="text-gray-600"><strong>📝 Description:</strong> <span id="modalDescription"></span></p>
@@ -89,8 +93,8 @@ function openModal(id, title, status, time, description, user = '') {
     document.getElementById('activityModal').classList.remove('hidden');
 }
 
-    function closeModal() {
-        document.getElementById('activityModal').classList.add('hidden');
-    }
+function closeModal() {
+    document.getElementById('activityModal').classList.add('hidden');
+}
 </script>
 @endsection

@@ -45,7 +45,7 @@ class ReportController extends Controller
         }
     
         // Fetch activities based on logged_at
-        $query = Activity::whereBetween('logged_at', [$startOfWeek, $endOfWeek]);
+        $query = Activity::whereBetween('created_at', [$startOfWeek, $endOfWeek]);
     
         // Employees see only their tasks; Admins/Moderators see all
         if (!$isAdminOrModerator) {
@@ -56,14 +56,19 @@ class ReportController extends Controller
     
         // Structure activities by day and time slot
         $structuredActivities = [];
+
         foreach ($activities as $activity) {
-            $day = Carbon::parse($activity->logged_at)->toDateString();
-            $timeSlot = $this->getTimeSlot(Carbon::parse($activity->logged_at), $timeSlots);
-            
-            if ($timeSlot) {
-                $structuredActivities[$day][$timeSlot] = $activity;
+            $day = \Carbon\Carbon::parse($activity->created_at)->toDateString(); // Group by day
+            $timeSlot = $this->getTimeSlot(Carbon::parse($activity->created_at), $timeSlots);
+        
+            // Ensure each slot holds an array of activities
+            if (!isset($structuredActivities[$day][$timeSlot])) {
+                $structuredActivities[$day][$timeSlot] = []; // Initialize as an array
             }
+        
+            $structuredActivities[$day][$timeSlot][] = $activity; // Store multiple activities
         }
+        
     
         return view('reports.weekly', compact('daysOfWeek', 'timeSlots', 'structuredActivities'));
     }
