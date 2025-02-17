@@ -61,6 +61,12 @@
                             <span :class="open ? 'ml-3 block' : 'hidden'" class="transition-all">Activities</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('reports.weekly') }}" class="flex items-center px-4 py-2 hover:bg-gray-700 transition">
+                            <i class="fas fa-file-alt"></i>
+                            <span :class="open ? 'ml-3 block' : 'hidden'" class="transition-all">Weekly Reports</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
 

@@ -20,7 +20,7 @@ class AdminDashboardController extends Controller
 
         // Completed & Pending Tasks
         $completedTasks = Task::where('status', 'completed')->count();
-        $pendingTasks = Task::where('status', 'pending')->count();
+        $pendingTasks = Task::where('status', 'undone')->count();
 
         // Task Completion Rate (Avoid division by zero)
         $taskCompletionRate = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100, 2) : 0;

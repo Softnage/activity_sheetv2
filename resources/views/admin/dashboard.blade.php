@@ -17,7 +17,7 @@
             </div>
             <div class="mt-2 text-sm">
                 <span class="text-green-400">{{ $completedTasks }} Completed</span> /
-                <span class="text-yellow-400">{{ $pendingTasks }} Pending</span>
+                <span class="text-red-500">{{ $pendingTasks }} Undone</span>
             </div>
         </a>
     </div>

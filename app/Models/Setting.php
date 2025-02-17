@@ -9,7 +9,7 @@ class Setting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['key','value','timezone'];
 
     public static function get($key)
     {
