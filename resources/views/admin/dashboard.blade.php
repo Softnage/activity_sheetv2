@@ -33,10 +33,10 @@
             <h4 class="text-lg font-semibold">Avg Task Duration</h4>
             <p class="text-2xl">{{ $avgTaskDuration }} mins</p>
         </div>
-        <div class="bg-teal-500 text-white p-5 rounded-lg shadow-md">
-            <h4 class="text-lg font-semibold">Active Employees</h4>
-            <p class="text-2xl">{{ $activeEmployees }}</p>
-        </div>
+            <a href="{{ route('users.index') }}" class="bg-teal-500 text-white p-5 rounded-lg shadow-md transition transform hover:scale-105 hover:bg-sky-500">
+                <h4 class="text-lg font-semibold">Active Employees</h4>
+                 <p class="text-2xl">{{ $activeEmployees }}</p>
+            </a>
         <div class="bg-red-500 text-white p-5 rounded-lg shadow-md">
             <h4 class="text-lg font-semibold">Productivity Score</h4>
             <p class="text-2xl">{{ $productivityScore }}</p>

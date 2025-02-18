@@ -29,7 +29,7 @@ class ProfileController extends Controller
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+            $request->user()->email_verified_at = now();
         }
 
         $request->user()->save();
@@ -57,4 +57,21 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function updatePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => ['required'],
+        'new_password' => ['required', 'min:8', 'confirmed'],
+    ]);
+
+    if (!Hash::check($request->current_password, auth()->user()->password)) {
+        return back()->withErrors(['current_password' => 'Incorrect current password.']);
+    }
+
+    auth()->user()->update([
+        'password' => Hash::make($request->new_password),
+    ]);
+
+    return back()->with('status', 'Password updated successfully!');
+}
 }

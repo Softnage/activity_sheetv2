@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -31,13 +32,15 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users'],
+            'role' => ['required', Rule::in(['admin', 'moderator', 'employee'])], // Validate role
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->role, // Store role
             'password' => Hash::make($request->password),
         ]);
 
@@ -49,7 +52,7 @@ class RegisteredUserController extends Controller
             'admin' => redirect()->route('admin.dashboard'),
             'moderator' => redirect()->route('moderator.dashboard'),
             'employee' => redirect()->route('employee.dashboard'),
-            default => redirect('/'),
+            default => redirect('/dashboard'),
         };
     }
 }

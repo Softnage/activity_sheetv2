@@ -28,9 +28,9 @@
         <h2 class="text-2xl font-semibold mb-6">Change Password</h2>
         
         <!-- Update Password -->
-        <form action="{{ route('password.update') }}" method="POST" class="space-y-4">
+        <form action="{{ route('profile.update-password') }}" method="POST" class="space-y-4">
             @csrf
-            @method('PATCH')
+            @method('POST')
             
             <div>
                 <label for="current_password" class="block font-medium text-gray-700">Current Password</label>
